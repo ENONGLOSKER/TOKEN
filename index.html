@@ -315,7 +315,7 @@
     }
   </style>
 </head>
-<body>
+<body class="fullscreen">
 
   <div class="container">
     <!-- <div class="circle-icon">
@@ -323,6 +323,11 @@
     </div> -->
     <div class="card">
       <!-- Lingkaran biru di atas card -->
+
+      <!-- Tombol fullscreen di pojok kanan atas -->
+      <button id="fullscreenBtn" title="Perbesar Layar" style="position:absolute;top:22px;right:22px;background:rgba(0,0,0,0.18);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;">
+        <i class="fas fa-expand" style="color:#fff;font-size:1.2rem;"></i>
+      </button>
 
       <div class="title">TOKEN ANDA</div>
       <div class="token" id="tokenDisplay">ANBK25</div>
@@ -444,6 +449,15 @@
     };
 
     updateToken();
+
+    // Fullscreen handler untuk seluruh halaman, bukan hanya card
+    document.getElementById('fullscreenBtn').onclick = function() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    };
   </script>
 </body>
 </html>
