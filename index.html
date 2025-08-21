@@ -408,7 +408,7 @@
         alert("Token tidak boleh kosong!");
         return;
       }
-      currentToken = newToken.toUpperCase();
+      currentToken = newToken; // Tidak diubah ke uppercase
       updateToken();
       closeAddModal();
     }
