@@ -1,0 +1,593 @@
+:root {
+    --primary: #3b82f6;
+    --primary-light: #60a5fa;
+    --primary-dark: #2563eb;
+    --text-white: #ffffff;
+    --text-gray: #9ca3af;
+    --bg-dark: #111827;
+    --bg-card: #131a2c;
+    --border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 28px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(360deg, #0f172a, #0f172a, #0f172a, #0d2c75, #183db9);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-white);
+    overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+body.fullscreen {
+    background: linear-gradient(-360deg, #0f172a, #0f172a, #0f172a, #0d2c75, #183db9);
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 4.5rem 2.5rem 3rem 2.5rem;
+    /* tambah padding-top agar icon tidak terpotong */
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: visible;
+    /* ubah dari hidden ke visible */
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+/* Mode fullscreen: perbesar card */
+body.fullscreen .container {
+    max-width: 1000px;
+}
+
+body.fullscreen .card {
+    padding: 4rem 3rem;
+    transform: scale(1.15);
+}
+
+body.fullscreen .token {
+    font-size: 160px !important;
+}
+
+body.fullscreen .title {
+    font-size: 1.5rem;
+}
+
+body.fullscreen .date {
+    font-size: 1.3rem;
+}
+
+body.fullscreen .tag {
+    font-size: 1.1rem;
+}
+
+body.fullscreen .button-group {
+    gap: 2rem;
+}
+
+body.fullscreen .btn {
+    font-size: 1.3rem;
+    padding: 1.2rem 1.8rem;
+}
+
+body.fullscreen .btn div {
+    width: 60px;
+    height: 60px;
+    font-size: 2.2rem;
+}
+
+body.fullscreen #fullscreenBtn {
+    top: 30px;
+    right: 30px;
+    width: 46px;
+    height: 46px;
+}
+
+body.fullscreen #fullscreenBtn i {
+    font-size: 1.4rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Lingkaran biru di atas card */
+.circle-icon {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+.circle-icon i {
+    color: white;
+    font-size: 1.8rem;
+}
+
+.title {
+    font-size: 1.2rem;
+    color: var(--primary);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.token {
+    font-size: 130px;
+    font-weight: 800;
+    color: var(--text-white);
+    margin: 0.6rem 0;
+    letter-spacing: 3px;
+    font-family: 'Space Mono', monospace;
+    line-height: 1.1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: font-size 0.4s ease;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.date {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+}
+
+.tags {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.tag {
+    padding: 0.6rem  1.4rem 0.6rem 0;
+    border-radius: 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tag.blue {
+    background: var(--primary);
+    color: white;
+    width: fit-content;
+    padding-left: 22px;
+    margin-right: 8px;
+}
+
+.tag.gray {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-gray);
+    width: fit-content;
+}
+
+.button-group {
+    display: flex;
+    gap: 1.4rem;
+    justify-content: center;
+    margin-top: 2rem;
+    transition: gap 0.4s ease;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.6rem;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--bg-dark);
+    color: var(--text-white);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: none;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.btn.add {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn.add:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.btn.reset {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn.reset:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.btn.copy {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #cdd0db85;
+    margin-top: 1rem;
+    font-size: 0.80rem;
+    padding: 0.8rem 1.4rem;
+}
+
+.btn.copy i {
+    font-size: 0.9rem;
+}
+
+.btn.copy:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: 18px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 440px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: scaleIn 0.4s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal h2 {
+    margin-bottom: 1.4rem;
+    color: var(--text-white);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 1.4rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 0.8rem 1.4rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.modal-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-gray);
+}
+
+.modal-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-btn.confirm {
+    background: var(--primary);
+    color: white;
+}
+
+.modal-btn.confirm:hover {
+    background: var(--primary-dark);
+}
+
+/* Konfirmasi Reset */
+.confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(5px);
+}
+
+.confirm-content {
+    background: var(--bg-card);
+    border-radius: 18px;
+    padding: 1.8rem;
+    width: 90%;
+    max-width: 380px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: scaleIn 0.4s ease;
+}
+
+.confirm-content p {
+    margin-bottom: 1.4rem;
+    color: var(--text-gray);
+    font-size: 1rem;
+}
+
+.confirm-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.confirm-btn {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.confirm-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-gray);
+}
+
+.confirm-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-btn.confirm {
+    background: var(--primary);
+    color: white;
+}
+
+.confirm-btn.confirm:hover {
+    background: var(--primary-dark);
+}
+
+body.fullscreen .button-group {
+    margin-top: 4.5rem;
+    gap: 2.2rem;
+}
+
+/* Fullscreen button */
+#fullscreenBtn {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    background: rgba(0, 0, 0, 0.18);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+#fullscreenBtn:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+#fullscreenBtn i {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+body.fullscreen #fullscreenBtn i {
+    transform: rotate(45deg);
+}
+
+/* Loading animation for token */
+.typing {
+    animation: typing 0.8s steps(40) 1 normal;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid var(--primary);
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* Tambahkan jika belum ada */
+.btn-edit {
+  background: rgba(110, 110, 110, 0.185) !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 12px !important;
+  border-radius: 50px;
+  min-width: unset;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-edit i {
+  color: #9b9b9b;
+  font-size: 1rem;
+}
+
+#editTagsModal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+#editTagsModal .modal-content {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 2rem;
+  min-width: 300px;
+  color: #fff;
+}
+#editTagsModal .input-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+#editTagsModal label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: #60a5fa;
+}
+
+.tag-icon {
+  margin-right: 8px;
+  font-size: 1em;
+  vertical-align: middle;
+}

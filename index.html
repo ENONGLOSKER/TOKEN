@@ -1,356 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Token ANBK</title>
 
+  <!-- Google Fonts: Inter & Space Mono -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <style>
-    :root {
-      --primary: #3b82f6;
-      --primary-light: #60a5fa;
-      --text-white: #ffffff;
-      --text-gray: #9ca3af;
-      --bg-dark: #111827;
-      --bg-card: #131a2c;
-      --border: rgba(255, 255, 255, 0.1);
-      --shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e40af);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--text-white);
-      overflow: hidden;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 800px;
-      text-align: center;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: 28px;
-      padding: 3rem 2.5rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-
-    /* Lingkaran biru di atas card */
-    .circle-icon {
-      position: absolute;
-      top: 210px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70px;
-      height: 70px;
-      background: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .circle-icon i {
-      color: white;
-      font-size: 1.4rem;
-    }
-
-    .title {
-      font-size: 1.2rem;
-      color: var(--primary);
-      letter-spacing: 0.08em;
-      margin-bottom: 0.15rem;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .token {
-      font-size: 130px;;
-      font-weight: 800;
-      color: var(--text-white);
-      margin: 0.6rem 0;
-      letter-spacing: 3px;
-      font-family: 'Arial', sans-serif;
-      line-height: 1.1;
-    }
-
-    .date {
-      font-size: 1rem;
-      color: var(--text-gray);
-      margin-bottom: 1.4rem;
-    }
-
-    .tags {
-      display: inline-flex;
-      gap: 6px;
-      margin-top: 1.5rem;
-    }
-
-    .tag {
-      padding: 0.6rem 0;
-      border-radius: 24px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .tag.blue {
-      background: var(--primary);
-      color: white;
-      padding: 10px 1.4rem;
-      position: relative;
-      margin-right: 8px;
-    }
-
-    .tag.blue::before {
-      content: '✨';
-      margin-right: 0.4rem;
-      font-size: 0.9rem;
-    }
-
-    .tag.gray {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-gray);
-      padding-right: 14px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 1.4rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1rem 1.6rem;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--bg-dark);
-      color: var(--text-white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      flex: 1;
-      font-size: 1.1rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-    }
-
-    .btn.add {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .btn.add:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .btn.reset {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn.reset:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: var(--bg-card);
-      border-radius: 18px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 440px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .modal h2 {
-      margin-bottom: 1.4rem;
-      color: var(--text-white);
-      font-size: 1.4rem;
-    }
-
-    .input-group {
-      margin-bottom: 1.4rem;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      font-size: 1.1rem;
-      outline: none;
-    }
-
-    .input-group input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-    }
-
-    .modal-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .modal-btn {
-      padding: 0.8rem 1.4rem;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .modal-btn.cancel {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-gray);
-    }
-
-    .modal-btn.confirm {
-      background: var(--primary);
-      color: white;
-    }
-
-    /* Konfirmasi Reset */
-    .confirm-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1001;
-    }
-
-    .confirm-content {
-      background: var(--bg-card);
-      border-radius: 18px;
-      padding: 1.8rem;
-      width: 90%;
-      max-width: 380px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .confirm-content p {
-      margin-bottom: 1.4rem;
-      color: var(--text-gray);
-      font-size: 1rem;
-    }
-
-    .confirm-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .confirm-btn {
-      padding: 0.7rem 1.4rem;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .confirm-btn.cancel {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-gray);
-    }
-
-    .confirm-btn.confirm {
-      background: var(--primary);
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="fullscreen">
+
+<body class="">
 
   <div class="container">
-    <!-- <div class="circle-icon">
-        <i class="fas fa-key"></i>
-    </div> -->
     <div class="card">
       <!-- Lingkaran biru di atas card -->
+      <div class="circle-icon">
+        <i class="fas fa-key"></i>
+      </div>
 
       <!-- Tombol fullscreen di pojok kanan atas -->
-      <button id="fullscreenBtn" title="Perbesar Layar" style="position:absolute;top:22px;right:22px;background:rgba(0,0,0,0.18);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;">
-        <i class="fas fa-expand" style="color:#fff;font-size:1.2rem;"></i>
+      <button id="fullscreenBtn" title="Perbesar Layar">
+        <i class="fas fa-expand"></i>
       </button>
 
       <div class="title">TOKEN ANDA</div>
-      <div class="token" id="tokenDisplay">ANBK25</div>
+      <div class="token" id="tokenDisplay">....</div>
       <div class="date" id="dateDisplay"></div>
-      <div class="tags">
-        <span class="tag gray">
-            <span class="tag blue">ANBK 2025</span>
-            MTS NW SEPIT
+      <div class="tags" id="tagsContainer" style="display: flex; align-items: center; justify-content: center; ">
+        <span class="tag gray" id="participantTag">
+          <span class="tag blue" id="sessionTag">
+            Sesi 1
+          </span>
+          <i class="fas fa-user" style="margin-right:6px;"></i>
+          Jumlah Peserta <span id="participantCount">25</span> orang
         </span>
+        <button id="editTagsBtn" class="btn-edit" title="Edit">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
       </div>
+
+      <button class="btn copy" id="copyTokenBtn">
+        <i class="fas fa-copy"></i>
+        Salin Token
+      </button>
     </div>
 
     <div class="button-group">
       <button class="btn add" onclick="openAddModal()">
-        <div style="width: 48px; height: 48px; background: #ffffff85; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+        <div
+          style="width: 48px; height: 48px; background: #ffffff85; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
           <span style="font-size: 1.8rem; font-weight: bold;">+</span>
         </div>
         Tambah Token
       </button>
 
       <button class="btn reset" onclick="showConfirmReset()">
-        <div style="width: 48px; height: 48px; background: #fbbf24; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div
+          style="width: 48px; height: 48px; background: #fbbf24; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M23 4v6h-6"></path>
             <path d="M1 20v-6h6"></path>
             <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
@@ -386,78 +101,26 @@
     </div>
   </div>
 
-  <script>
-    let currentToken = "ANBK25";
+  <!-- Modal Edit Tags -->
+  <div id="editTagsModal" class="modal">
+    <div class="modal-content">
+      <h2>Edit Sesi & Jumlah Peserta</h2>
+      <div class="input-group">
+        <label for="editSessionInput">Sesi</label>
+        <input type="text" id="editSessionInput" maxlength="20" />
+      </div>
+      <div class="input-group">
+        <label for="editParticipantInput">Jumlah Peserta</label>
+        <input type="number" id="editParticipantInput" min="1" max="999" />
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn cancel" onclick="closeEditTagsModal()">Batal</button>
+        <button class="modal-btn confirm" onclick="saveTags()">Simpan</button>
+      </div>
+    </div>
+  </div>
 
-    function updateToken() {
-      document.getElementById('tokenDisplay').textContent = currentToken;
-    }
-
-    function openAddModal() {
-      document.getElementById('addModal').style.display = 'flex';
-      document.getElementById('newTokenInput').value = '';
-    }
-
-    function closeAddModal() {
-      document.getElementById('addModal').style.display = 'none';
-    }
-
-    function saveToken() {
-      const newToken = document.getElementById('newTokenInput').value.trim();
-      if (!newToken) {
-        alert("Token tidak boleh kosong!");
-        return;
-      }
-      currentToken = newToken; // Tidak diubah ke uppercase
-      updateToken();
-      closeAddModal();
-    }
-
-    function showConfirmReset() {
-      document.getElementById('confirmModal').style.display = 'flex';
-    }
-
-    function closeConfirmModal() {
-      document.getElementById('confirmModal').style.display = 'none';
-    }
-
-    function resetToken() {
-      currentToken = "ANBK25";
-      updateToken();
-      closeConfirmModal();
-    }
-
-    // Fungsi untuk menampilkan tanggal Indonesia secara dinamis
-    function setIndonesianDate() {
-      const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-      const bulan = [
-        "Januari","Februari","Maret","April","Mei","Juni",
-        "Juli","Agustus","September","Oktober","November","Desember"
-      ];
-      const now = new Date();
-      const tgl = `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
-      document.getElementById('dateDisplay').textContent = tgl;
-    }
-
-    setIndonesianDate();
-
-    window.onclick = function(event) {
-      const addModal = document.getElementById('addModal');
-      const confirmModal = document.getElementById('confirmModal');
-      if (event.target === addModal) closeAddModal();
-      if (event.target === confirmModal) closeConfirmModal();
-    };
-
-    updateToken();
-
-    // Fullscreen handler untuk seluruh halaman, bukan hanya card
-    document.getElementById('fullscreenBtn').onclick = function() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    };
-  </script>
+  <script src="script.js"></script>
 </body>
+
 </html>
